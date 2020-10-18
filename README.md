@@ -93,3 +93,5 @@ https://regex101.com/
 https://swapi.dev/api/planets/12/
 \/([0-9]*)\/$ => 12
 
+https://loading.io/
+
