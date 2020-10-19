@@ -40,8 +40,10 @@ export default class SwapService {
   }
 
   _extractId(item) {
+    //https://swapi.dev/api/starships/12 => получаю 12
     const idRegExp = /\/([0-9]*)\/$/;
-    return item.url.match(idRegExp)[1]; //получаю id из первой группы
+    //получаю id из первой группы
+    return item.url.match(idRegExp)[1]; 
   }
 
   _transformPlanet(planet) {

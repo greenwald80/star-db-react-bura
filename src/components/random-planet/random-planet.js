@@ -6,34 +6,19 @@ import ErrorIndicator from "../error-indicator/error-indicator";
 export default class RandomPlanet extends Component {
   swapiService = new SwapiService();
   state = {
-    // name: null,
-    // population: null,
-    // rotationPeriod: null,
-    // diameter: null,
     planet: {},
     loading: true,
   };
   constructor() {
     super();
-    this.updatePlanet();
+    setTimeout(() => {
+      this.updatePlanet();
+    }, 1000);
   }
 
   updatePlanet() {
-    //const id = 12;
-    //this.swapiService.getPlanet(id).then(
-    // (planet) => {
-    // this.setState({
-    //   id,
-    //   name: planet.name,
-    //   population: planet.population,
-    //   rotationPeriod: planet.rotation_period,
-    //   diameter: planet.diameter,
-    // });
-    //}
-    //this.onPlanetLoaded
-    //);
-
-    const id = Math.floor(Math.random() * 25) + 2; //получаю айди до 27
+    //получаю айди до 27
+    const id = Math.floor(Math.random() * 25) + 2; 
     this.swapiService
       .getPlanet(id)
       .then(this.onPlanetLoaded)
@@ -61,14 +46,13 @@ export default class RandomPlanet extends Component {
     const hasData = !(loading || error);
 
     //после окончания загрузки будет отображаться content
-    //const content = !loading ? <PlanetView planet={planet} /> : null;
     const content = hasData ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className="random-planet jumbotron rounded">
+        {errorMessage}
         {spinner}
         {content}
-        {errorMessage}
       </div>
     );
   }
@@ -87,15 +71,15 @@ const PlanetView = ({ planet }) => {
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            <span className="term">Population: </span>
+            <span className="term">Population</span>
             <span>{population}</span>
           </li>
           <li className="list-group-item">
-            <span className="term">Rotation Period: </span>
+            <span className="term">Rotation Period</span>
             <span>{rotationPeriod}</span>
           </li>
           <li className="list-group-item">
-            <span className="term">Diameter: </span>
+            <span className="term">Diameter</span>
             <span>{diameter}</span>
           </li>
         </ul>
