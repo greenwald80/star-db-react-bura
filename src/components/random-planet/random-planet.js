@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner/spinner";
+import ErrorIndicator from "../error-indicator/error-indicator";
 
 export default class RandomPlanet extends Component {
   swapiService = new SwapiService();
@@ -18,40 +19,56 @@ export default class RandomPlanet extends Component {
   }
 
   updatePlanet() {
+    //const id = 12;
+    //this.swapiService.getPlanet(id).then(
+    // (planet) => {
+    // this.setState({
+    //   id,
+    //   name: planet.name,
+    //   population: planet.population,
+    //   rotationPeriod: planet.rotation_period,
+    //   diameter: planet.diameter,
+    // });
+    //}
+    //this.onPlanetLoaded
+    //);
+
     const id = Math.floor(Math.random() * 25) + 2; //получаю айди до 27
-    this.swapiService.getPlanet(id).then(
-      // (planet) => {
-      // this.setState({
-      //   id,
-      //   name: planet.name,
-      //   population: planet.population,
-      //   rotationPeriod: planet.rotation_period,
-      //   diameter: planet.diameter,
-      // });
-      //}
-      this.onPlanetLoaded
-    );
+    this.swapiService
+      .getPlanet(id)
+      .then(this.onPlanetLoaded)
+      .catch(this.onError);
   }
 
   onPlanetLoaded = (planet) => {
-    this.setState({ planet, loading: false });
+    this.setState({ planet, loading: false, error: false });
+  };
+
+  onError = (err) => {
+    this.setState({ error: true, loading: false });
   };
 
   render() {
-    const { planet, loading } = this.state;
-    // if (loading) {
-    //   return <Spinner />;
-    // }
+    const { planet, loading, error } = this.state;
 
     //если загружаемся, то это объект спиннер, если нет, то null
     const spinner = loading ? <Spinner /> : null;
+
+    //отображает блок ошибки при ошибке
+    const errorMessage = error ? <ErrorIndicator /> : null;
+
+    //есть данные только нет лоадинга или ошибки
+    const hasData = !(loading || error);
+
     //после окончания загрузки будет отображаться content
-    const content = !loading ? <PlanetView planet={planet} /> : null;
+    //const content = !loading ? <PlanetView planet={planet} /> : null;
+    const content = hasData ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className="random-planet jumbotron rounded">
         {spinner}
         {content}
+        {errorMessage}
       </div>
     );
   }
