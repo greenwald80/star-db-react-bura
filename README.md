@@ -95,3 +95,9 @@ https://swapi.dev/api/planets/12/
 
 https://loading.io/
 
+CHECK on Production:
+npm install http-server -g
+npm run build
+http-server build
+
+
