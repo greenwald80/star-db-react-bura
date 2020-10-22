@@ -30,6 +30,7 @@ export default class App extends Component {
     return (
       <div className="stardb-app">
         <Header />
+
         {planet}
 
         <button
@@ -38,6 +39,8 @@ export default class App extends Component {
         >
           Toggle Random Planet
         </button>
+
+        <br/>
 
         <div className="row mb2">
           <div className="col-md-6">
