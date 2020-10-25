@@ -45,7 +45,8 @@ export default class App extends Component {
           Toggle Random Planet
         </button>
         <ErrorButton />
-        {/* <PeoplePage /> */}
+        <PeoplePage />
+
         <div className="row mb2">
           <div className="col-md-6">
             <h1>People:</h1>
